@@ -1,10 +1,15 @@
 import {Matrix} from "./classes";
-const m = [
-    [1, 2, -3],
-    [-4, 5, 6],
-    [7, 8, -9]
+const a = [
+    [-1, 1.5],
+    [1, -1]
 ]
-const mat = new Matrix(m);
-mat.multiply(2);
-console.log(mat.Matrix);
-console.log(mat.determinant());
+const b = [
+    [1, 0, 5],
+    [2, 1, 6],
+    [3, 4, 0]
+]
+const matA = new Matrix(a);
+const matB = new Matrix(b);
+// console.log(matA.multiply(matB).determinant());
+console.log(matB.determinant());
+console.log(matA.invert().Matrix);
