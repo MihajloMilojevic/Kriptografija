@@ -43,16 +43,22 @@ export class Matrix<T> {
         if(!(this instanceof Matrix<number>)) throw new Error("Only number matrices can be inverted");
         return <Matrix<T>>Matrix.invert(<Matrix<number>>this);
     }
+    public swapRow(row1: number, row2: number): Matrix<T> {
+        return Matrix.swapRow(this, row1, row2);
+    }
+    public swapColumn(col1: number, col2: number): Matrix<T> {
+        return Matrix.swapColumn(this, col1, col2);
+    }
     public static copy(matrix: Matrix<any>): Matrix<any> {
         return matrix.multiply(1);
     }
     public static from(matrix: any[][]): Matrix<any> {
         return new Matrix(matrix);
     }
-    public static createMatrixArray(n: number, m: number): any[][] {
+    public static createMatrixArray(n: number, m: number, defaultValue?: any): any[][] {
         if(n <= 0 || m <= 0) throw new Error("Number of rows and colimns must be positive integer.")
         const row = new Array(m);
-        for (let i = 0; i < m; i++) row[i] = null;
+        for (let i = 0; i < m; i++) row[i] = (defaultValue ? defaultValue : null);
         const matrix = new Array(n);
         for (let i = 0; i < n; i++) matrix[i] = [...row];
         return matrix;
@@ -216,5 +222,26 @@ export class Matrix<T> {
         }
         const adjMat = new Matrix<number>(res);
         return adjMat.multiply(1.0 / mat.determinant());
+    }
+    public static swapRow(mat: Matrix<any>, row1: number, row2: number): Matrix<any> {
+        const n = mat.Matrix.length;
+        if(row1 >= n || row2 >= n) throw new Error("Invalid row number");
+        const res = Matrix.copy(mat);
+        const rowT = res.Matrix[row1];
+        res.Matrix[row1] = res.Matrix[row2];
+        res.Matrix[row2] = rowT;
+        return res;
+    }
+    public static swapColumn(mat: Matrix<any>, col1: number, col2: number): Matrix<any> {
+        const n = mat.Matrix.length;
+        const m = mat.Matrix[0].length;
+        if(col1 >= m || col2 >= m) throw new Error("Invalid column number");
+        const res = Matrix.copy(mat);
+        for(let i = 0; i < n; i ++) {
+            const colT = res.Matrix[i][col1];
+            res.Matrix[i][col1] = res.Matrix[i][col2];
+            res.Matrix[i][col2] = colT;
+        }
+        return res;
     }
 }
