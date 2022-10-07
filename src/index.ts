@@ -15,5 +15,5 @@ const matB = new Matrix(b);
 // console.log(matA.multiply(matB).determinant());
 // console.log(matB.determinant());
 // console.log(matA.invert().Matrix);
-// console.log(Matrix.swapColumn(matB, 0, 2).Matrix);
-ColumnTransposition.encrypt("univerzitetsingidunum", 3, 7)
+// console.log(matB.swapColumn(0, 2).Matrix);
+console.log(ColumnTransposition.encrypt("UNIVERZITETSINGIDUNUM", 3, 7));

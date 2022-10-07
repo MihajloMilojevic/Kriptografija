@@ -10,7 +10,7 @@ export class ColumnTransposition {
         for(let i = 0; i < n; i++)
             for(let j = 0; j < m; j++)
                 matArray[i][j] = message[k++];
-        const mat = new Matrix(matArray);
+        let mat = new Matrix(matArray);
         if(keyWord && typeof keyWord === "string") {
             if(keyWord.length !== m) throw new Error("Lenght of key word and number of columns must be same");
             const currentOrder = Array(m);
@@ -21,12 +21,19 @@ export class ColumnTransposition {
                 .map((char, index) => ({char, index}))
                 .sort((a, b) => a.char > b.char ? 1: -1)
                 .map(({index}) => index);
-            for(let i = 0; i < m; i++) {
-                mat.swapColumn(i, currentOrder.findIndex(ind => ind === i));
+            for(let i = 0; i < m - 1; i++) {
+                let j = currentOrder.findIndex(ind => ind === endOrder[i]);
+                const t = currentOrder[i];
+                currentOrder[i] = currentOrder[j];
+                currentOrder[j] = t;
+                mat = mat.swapColumn(i, j);
             }
         }
-        console.log(mat.Matrix);
-        let cipher = "";
-        return cipher;
+        let cipher = Array(n * m);
+        k = 0;
+        for(let j = 0; j < m; j++)
+            for(let i = 0; i < n; i++)
+                cipher[k++] = mat.Matrix[i][j];
+        return cipher.join("");
     }
 }

@@ -50,7 +50,7 @@ export class Matrix<T> {
         return Matrix.swapColumn(this, col1, col2);
     }
     public static copy(matrix: Matrix<any>): Matrix<any> {
-        return matrix.multiply(1);
+        return new Matrix(JSON.parse(JSON.stringify(matrix.Matrix)));
     }
     public static from(matrix: any[][]): Matrix<any> {
         return new Matrix(matrix);
@@ -236,12 +236,12 @@ export class Matrix<T> {
         const n = mat.Matrix.length;
         const m = mat.Matrix[0].length;
         if(col1 >= m || col2 >= m) throw new Error("Invalid column number");
-        const res = Matrix.copy(mat);
+        const res = Matrix.copy(mat).Matrix;
         for(let i = 0; i < n; i ++) {
-            const colT = res.Matrix[i][col1];
-            res.Matrix[i][col1] = res.Matrix[i][col2];
-            res.Matrix[i][col2] = colT;
+            const colT = res[i][col1];
+            res[i][col1] = res[i][col2];
+            res[i][col2] = colT;
         }
-        return res;
+        return new Matrix(res);
     }
 }
