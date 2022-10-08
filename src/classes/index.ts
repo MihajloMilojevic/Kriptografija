@@ -1,2 +1,2 @@
 export * from "./Matrix";
-export * from "./ColumnTransposition";
+export * from "./Transposition/ColumnTransposition";

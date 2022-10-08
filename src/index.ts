@@ -16,4 +16,4 @@ const matB = new Matrix(b);
 // console.log(matB.determinant());
 // console.log(matA.invert().Matrix);
 // console.log(matB.swapColumn(0, 2).Matrix);
-console.log(ColumnTransposition.encrypt("UNIVERZITETSINGIDUNUM", 3, 7));
+console.log(ColumnTransposition.decrypt("ROUPSXCTFYIN", 3, 4, "MATH"));
