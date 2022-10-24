@@ -190,7 +190,7 @@ export class Matrix<T> {
         }
         return new Matrix(res);
     }
-    public static multiplyRowWithColumn(matA: Matrix<number>, row: number, matB: Matrix<number>, col: number): number {
+    private static multiplyRowWithColumn(matA: Matrix<number>, row: number, matB: Matrix<number>, col: number): number {
         const n = matB.Matrix.length;
         let S = 0;
         for(let i = 0; i < n; i++) 

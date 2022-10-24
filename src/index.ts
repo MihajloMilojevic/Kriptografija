@@ -20,3 +20,4 @@ const matB = new Matrix(b);
 // console.log(matB.swapColumn(0, 2).Matrix);
 console.log(HillCipher.encrypt("ZASTITAXINFORMACIONIHXSISTEMAX", matB));
 console.log("CIRDPDJXXZCPEAJCOTNBFAZUBNKFEA" === "CIRDPDJXXZCPEAJCOTNBFAZUBNKFEA")
+
