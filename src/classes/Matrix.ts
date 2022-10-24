@@ -14,6 +14,12 @@ export class Matrix<T> {
         if(matrix.some(row => row.length !== matrix[0].length)) throw new Error("All rows must have same number of columns");
         this.matrix = matrix;
     }
+    get ColNum() {
+        return this.matrix[0].length;
+    }
+    get RowNum() {
+        return this.matrix.length;
+    }
     public determinant(): number {
         if(typeof this.matrix[0][0] !== "number") throw new Error("Only number matrices determinant can be calculated");
         return Matrix.determinant(<Matrix<number>>this);
@@ -23,6 +29,10 @@ export class Matrix<T> {
     public multiply(value: any): Matrix<number> {
         if(!(this instanceof Matrix<number>)) throw new Error("Only number matrices can be multiplied");
         return Matrix.multiply(<Matrix<number>>this, value);
+    }
+    public mod(value: any): Matrix<number> {
+        if(!(this instanceof Matrix<number>)) throw new Error("Only number matrices can be moded");
+        return Matrix.mod(<Matrix<number>>this, value);
     }
     public add(value: number): Matrix<number>;
     public add(value: Matrix<number>): Matrix<number>;
@@ -108,6 +118,19 @@ export class Matrix<T> {
                     row[j] = Matrix.multiplyRowWithColumn(<Matrix<number>>mat, i, value, j);
                 res[i] = row;
             }
+        }
+        return new Matrix(res);
+    }
+    public static mod(mat: Matrix<number>, value: number): Matrix<number> {
+        if(!(mat instanceof Matrix<number>)) throw new Error("Only number matrices can be moded");
+        const n = mat.matrix.length;
+        const m = mat.matrix[0].length;
+        let res = Array(n);
+        for(let i = 0; i < mat.matrix.length; i++) {
+            const row = Array(m);
+            for(let j = 0; j < mat.matrix[0].length; j++)
+                row[j] = <number>mat.matrix[i][j] % value;
+            res[i] = row;
         }
         return new Matrix(res);
     }
